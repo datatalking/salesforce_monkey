@@ -4,7 +4,7 @@ a simple tool to access your salesforce data
 
 no more dealing with SQL.
 
-conduct simiple text based searches for marketing, sales or customer analystics
+conduct simple text based searches for marketing, sales or customer analystics
 
 expand upon the work here, use sqlAlchemy for Django or Flask
 # not all instances of salesforce will work with this prototype
@@ -27,3 +27,7 @@ setup.py salesforce_monkey
 # Future Features
 enable local elastic search
 enable oracle dbase options
+
+
+# Feature History
+# https://stackoverflow.com/questions/30861524/logging-basicconfig-not-creating-log-file-when-i-run-in-pycharm
