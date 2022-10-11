@@ -13,3 +13,5 @@ gluestick
 python-dotenv~=0.20.0
 # python~=3.7.11
 datetime
+jupyterlab
+python-telegram-bot 13.14
