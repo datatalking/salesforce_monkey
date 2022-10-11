@@ -11,22 +11,12 @@ from dotenv import load_dotenv
 #  import pycrunch-engine
 
 
-def test_salesforce_report():
-	sf_instance = 'https://oneappexchange.lightning.force.com/'  # Your Salesforce Instance URL
-	reportId = ''  # add report id
-	export = '?isdtp=p1&export=1&enc=UTF-8&xf=csv'
-	sfUrl = sf_instance + reportId + export
-	response = requests.get(sfUrl, headers=sf.headers, cookies={'sid': sf.session_id})
-	download_report = response.content.decode('utf-8')
-	df_sfdc_report = pd.read_csv(StringIO(download_report))
-
-
 def main():
 	test_some_script()
 	test_trace_str_variable()
 	test_trace_int_variable()
-	test_salesforce_report()
-	test_salesforce_field_names()
+	# TODO FIXME test_salesforce_report()
+	# TODO FIXME test_salesforce_field_names()
 
 
 def test_some_script():
@@ -52,11 +42,7 @@ def test_trace_str_variable():
 	test that strings as input are strings
 	:return:
 	"""
-
-	random = ''
-	words = ''
-	random_words = random + '_' + words
-	test_trace_str_variable(my_dictionary=dict(a=random, b=words, sum=random_words))
+	pass
 	
 
 def test_trace_int_variable():
@@ -72,28 +58,29 @@ def test_salesforce_report():
 	reportId = ''  # add report id
 	export = '?isdtp=p1&export=1&enc=UTF-8&xf=csv'
 	sfUrl = sf_instance + reportId + export
-	response = requests.get(sfUrl, headers=sf_conn.headers, cookies={'sid': sf_conn.session_id})
+	response = requests.get(sfUrl, headers=sf.headers, cookies={'sid': sf.session_id})
 	download_report = response.content.decode('utf-8')
 	df_sfdc_report = pd.read_csv(StringIO(download_report))
 
 
 def test_salesforce_field_names():
+	global sf
 	# check all field names of the object
 	description_test = sf.UserInstall__c.describe()
 	print([field['name'] for field in description_test['fields']])
 
 
 if __name__ == "__main__":
+	main()
 	load_dotenv()
 	# connect to Salesforce API using your credentials, you can use environment variables to protect your passwords
 	sf_conn_test = Salesforce(username='SALESFORCE_API_USER', password='SALESFORCE_API_PASSWORD',
 							security_token='SALESFORCE_API_TOKEN')
 	
-	sf_conn = Salesforce(username='SALESFORCE_API_USER',
-	                password='SALESFORCE_API_PASSWORD',
-	                security_token='SALESFORCE_API_TOKEN')
-
-	main()
+	sf = Salesforce(username='SALESFORCE_API_USER',
+	                password='SALESFORCE_API_PASSWORD')
+	                # security_token='SALESFORCE_API_TOKEN'
+	
 	
 	# TODO centralize PATH to .env
 		# dotenv_path = Path('path/to/.env')
